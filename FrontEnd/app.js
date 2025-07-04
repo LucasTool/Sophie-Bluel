@@ -1,56 +1,118 @@
-async function getWorks() {
-  const url = "http://localhost:5678/api/works";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`response status: ${response.status}`);
-    }
+const baseApiUrl = "http://localhost:5678/api/";
+let worksData;
+let categories;
 
-    const json = await response.json();
-    console.log(json);
+//Elements
+let filter;
+let gallery;
+let modal;
+let modalStep = null;
+let pictureInput;
 
-    for (let i = 0; i < json.length; i++) {
-      setFigure(json[i]);
-    }
-  } catch (error) {
-    console.error(error.message);
+// FETCH works data from API and display it
+window.onload = () => {
+  fetch(`${baseApiUrl}works`)
+    .then((response) => response.json())
+    .then((data) => {
+      worksData = data;
+      //get list of categories
+      listOfUniqueCategories();
+      //display all works
+      displayGallery(worksData);
+      //Filter functionnality
+      filter = document.querySelector(".filter");
+      categoryFilter(categories, filter);
+      //administrator mode
+      adminUserMode(filter);
+    });
+};
+
+//*******GALLERY*******
+
+function displayGallery(data) {
+  gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
+  //show all works in array
+  data.forEach((i) => {
+    //create tags
+    const workCard = document.createElement("figure");
+    const workImage = document.createElement("img");
+    const workTitle = document.createElement("figcaption");
+    workImage.src = i.imageUrl;
+    workImage.alt = i.title;
+    workTitle.innerText = i.title;
+    workCard.dataset.category = i.category.name;
+    workCard.className = "workCard";
+    //references to DOM
+    gallery.appendChild(workCard);
+    workCard.append(workImage, workTitle);
+  });
+}
+
+// ********** FILTER ***********//
+
+//get list of categories in array as unique objects
+function listOfUniqueCategories() {
+  let listOfCategories = new Set();
+  //get set of string categories
+  worksData.forEach((work) => {
+    listOfCategories.add(JSON.stringify(work.category));
+  });
+  //push stringified categories in array
+  const arrayOfStrings = [...listOfCategories];
+  //parse array to get objects back
+  categories = arrayOfStrings.map((s) => JSON.parse(s));
+}
+
+//init filter buttons
+function categoryFilter(categories, filter) {
+  const button = document.createElement("button");
+  button.innerText = "Tous";
+  button.className = "filterButton";
+  button.dataset.category = "Tous";
+  filter.appendChild(button);
+  filterButtons(categories, filter);
+  functionFilter();
+}
+
+//create filter buttons
+function filterButtons(categories, filter) {
+  categories.forEach((categorie) => {
+    createButtonFilter(categorie, filter);
+  });
+}
+
+function createButtonFilter(categorie, filter) {
+  const button = document.createElement("button");
+  button.innerText = categorie.name;
+  button.className = "filterButton";
+  button.dataset.category = categorie.name;
+  filter.appendChild(button);
+}
+
+// Gallery filter
+function functionFilter() {
+  const filterButtons = document.querySelectorAll(".filterButton");
+  //identify wich filter button has been clicked
+  filterButtons.forEach((i) => {
+    i.addEventListener("click", function () {
+      toggleProjects(i.dataset.category);
+    });
+  });
+}
+
+//if button "tous" active, display all projects, else display only those with same dataset category
+function toggleProjects(datasetCategory) {
+  const figures = document.querySelectorAll(".workCard");
+  if ("Tous" === datasetCategory) {
+    figures.forEach((figure) => {
+      figure.style.display = "block";
+    });
+  } else {
+    figures.forEach((figure) => {
+      figure.dataset.category === datasetCategory
+        ? (figure.style.display = "block")
+        : (figure.style.display = "none");
+    });
   }
-}
-
-getWorks();
-
-function setFigure(data) {
-  const figure = document.createElement("figure");
-  figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
-<figcaption>${data.title}</figcaption>`;
-
-  document.querySelector(".gallery").append(figure);
-}
-
-async function getCategories() {
-  const url = "http://localhost:5678/api/categories";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    console.log(json);
-
-    for (let i = 0; i < json.length; i++) {
-      setFilter(json[i]);
-    }
-  } catch (error) {
-    console.error(error.message);
-  }
-}
-
-getCategories();
-
-function setFilter(data) {
-  const div = document.createElement("div");
-  div.innerHTML = `${data.name}`;
-
-  document.querySelector(".div-container").append(div);
 }
