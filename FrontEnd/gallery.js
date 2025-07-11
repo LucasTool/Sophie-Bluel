@@ -4,6 +4,9 @@ const CATEGORY_API = BASE_URL + "categories";
 const GALLERY_DIV = document.querySelector(".gallery");
 const FILTER_DIV = document.querySelector(".filter");
 
+document.addEventListener("DOMContentLoaded", () => {
+  gestion_login();
+});
 //AFFICHE LES TRAVAUX DANS LA GALERIE
 fetchWorks(GALLERY_DIV, false);
 
@@ -111,28 +114,35 @@ function removeSelectedClass() {
 }
 
 function gestion_login() {
+  const loginLogoutLink = document.getElementById("login_logout");
+  const bandeau_edit = document.getElementById("edition");
+  const modif_projet = document.getElementById("modif_projet");
+  const filter_section = document.querySelector(".filter");
+
   if (sessionStorage.getItem("token")) {
-    //POUR CHANGER LE MOT LOGIN EN LOGOUT
-    let loginLogoutLink = document.getElementById("login_logout");
+    // Utilisateur connecté
     loginLogoutLink.textContent = "logout";
-    //POUR FAIRE APPARAITRE LE BANDEAU EDITION
-    let bandeau_edit = document.getElementById("edition");
-    bandeau_edit.style.display = "flex";
-    //POUR FAIRE APPARAITRE LA MODIFICATION DES PROJETS
-    let projet_modif = document.getElementById("modif_projet");
-    projet_modif.style.display = "inline";
-    //POUR CACHER LES FILTRES EN MODE EDITION
-    let button_filter = document.querySelector(".filter");
-    button_filter.style.display = "none";
-    // DÉCONNEXION LORS DU CLIQUE SUR LOGOUT
+
+    if (bandeau_edit) bandeau_edit.style.display = "flex";
+    if (modif_projet) modif_projet.style.display = "block";
+    if (filter_section) filter_section.classList.add("hidden");
+
     loginLogoutLink.addEventListener("click", function (event) {
       event.preventDefault();
-
-      // SUPPRESSION DU TOKEN DU SESSION STORAGE
       sessionStorage.removeItem("token");
-
-      // REDIRECTION VERS LA PAGE D'ACCUEIL
       window.location.href = "index.html";
+    });
+  } else {
+    // Utilisateur déconnecté
+    loginLogoutLink.textContent = "login";
+
+    if (bandeau_edit) bandeau_edit.style.display = "none";
+    if (modif_projet) modif_projet.style.display = "none";
+    if (filter_section) filter_section.classList.remove("hidden");
+
+    loginLogoutLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href = "login.html";
     });
   }
 }

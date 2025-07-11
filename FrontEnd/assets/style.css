@@ -244,6 +244,36 @@ input[type="email"],
   display: none;
 }
 
+.bandeau_edition {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 59px;
+  background-color: black;
+  color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-bottom: 38px;
+}
+
+.bandeau_edition .fa-regular {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-right: 11px;
+}
+
+#edition {
+  display: none;
+}
+
+.filter.hidden {
+  display: none;
+}
+
 .filter {
   display: flex;
   flex-direction: row;
