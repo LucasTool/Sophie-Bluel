@@ -398,30 +398,29 @@ h2 #modif_projet {
 
 
 /**MODALE**/
-#modal1, #modal2 {
-	position: fixed;
-	left: 0;
-	top: 0;
+.modal1, .modal2 {
+	position: center;
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.3);
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	box-sizing: border-box;
 }
 
-.modal-wrapper,.modal-wrapper-new  {
-	display: flex;
-	justify-content: end;
+.modal-wrapper, .modal-wrapper-new {                
 	width: 630px;
-	height: 688px;
+	height: auto;                        
+	max-height: 90vh;                    
 	border-radius: 10px;
 	background-color: white;
+	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	margin-top: 10px;
-}
-
+	align-items: center;
+	padding: 20px 30px;                  
+	box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  }
 
 .title {
     width: 100%;
@@ -455,12 +454,7 @@ h2 #modif_projet {
 	font-size: 18px;
 }
 
-.js-modal-close-new {
-	position:relative;
-}
-
 .modal-wrapper h3 {
-	position: absolute;
 	height: 30px;
 	margin-top: 10px;
 	display: flex;
@@ -489,7 +483,6 @@ h2 #modif_projet {
 }
 
 .modal-gallery figure {
-	position: relative;
 	Width: 78.63px;
 	Height: 139.87px;
 	background-color: white;
