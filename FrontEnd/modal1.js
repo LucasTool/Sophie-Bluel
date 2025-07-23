@@ -5,9 +5,11 @@ const BUTTON_MODIF_WORKS = document.querySelector('#modif_projet');
 
 let modal = null
 
+
+
 //FONCTION OUVERTURE BOITE MODALE
 const OPEN_MODAL = function (e) {
-    e.preventDefault()
+    e.preventDefault();
     modal=document.querySelector("#modal1");
     modal.style.display=null
     modal.addEventListener('click', CLOSE_MODAL)
@@ -15,6 +17,7 @@ const OPEN_MODAL = function (e) {
     MODALE_WRAPPER.style.display="flex"
     GALLERY_MODALE.innerHTML = '';
     fetchWorks(GALLERY_MODALE, true);
+    
 }
 
 
@@ -23,7 +26,7 @@ const CLOSE_MODAL = function (e) {
     if (modal==null) return
     //SI ON CLIQUE SUR AUTRE CHOSE QUE LA MODALE OU LE BOUTON ON NE VEUT PAS FERMER
     if (e.target != modal && e.target != BUTTON_CLOSE && e.target != document.querySelector('.fa-solid') ) return
-    e.preventDefault
+    e.preventDefault();
     modal.style.display="none"
     modal.removeEventListener('click',CLOSE_MODAL)
     BUTTON_CLOSE.removeEventListener ('click',CLOSE_MODAL)
@@ -38,6 +41,8 @@ const DELETE_WORK = function (e) {
     const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
 
     if (confirmation) {
+        console.log("ID à supprimer:", e.target.id);
+        console.log("Token utilisé:", sessionStorage.getItem("token"));
         try {
             deleteWorkFetch(e.target.id);
         } catch (error) {
@@ -53,8 +58,8 @@ function deleteWorkFetch(idWork){
     fetch (WORKS_API+'/'+idWork, {
         method: "DELETE",
         headers: {
-            'Accept': '*/*',
             'Authorization': `Bearer ${token}`,
+            'Accept': '*/*',
         }
     })
     .then (response => {
