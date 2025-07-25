@@ -26,6 +26,7 @@
     <script src="/FrontEnd/gallery.js" defer></script>
     <script src="/FrontEnd/login.js" defer></script>
     <script src="/FrontEnd/modal1.js" defer></script>
+    <script src="/FrontEnd/modal2.js" defer></script>
   </head>
   <body>
     <section id="edition">
@@ -71,14 +72,14 @@
       <section id="portfolio">
         <div class="projet">
           <h2>Mes Projets</h2> 
-          <aside>
+          <div>
             <a href=".modal1" class="js-modal" id="modif_projet">
               <i class="fa-regular fa-pen-to-square"></i> 
               <span>modifier</span>
             </a>
+          </div>
           
-          
-          <div id="modal1" class="modal1" style="display:none;">
+          <aside class="modal1" id="modal1" style="display:none;">
             <div class="modal-wrapper">
           
                 <div class="top1">
@@ -86,7 +87,42 @@
                 </div>
                 <div class="title"><h3>Galerie photo</h3></div>
                 <div class="modal-gallery"></div>
+                <div id="separation1"></div>
+
+            
+                <a href="#modal2" class="js-modal" id="ajout_projet">Ajouter une photo </a>
             </div>
+           
+          </aside>
+
+
+          <!--Modale 2-->
+			<aside id="modal2" style="display:none;">
+				<div class="modal-wrapper-new" style="display:none;">
+					   <div class="top">
+						    <div><button class="modal-back"><i class="fa-solid fa-arrow-left"></i></button></div>
+						    <div><button class="js-modal-close-new"><i class="fa-solid fa-x"></i></button></div>
+				  	 </div>
+					<div class="title"><h3>Ajout photo</h3></div>
+					    <div class="form">
+					   	<div class="modal-new-photo"> 
+							<div class="picture-selection">
+								<i id="no-picture-preview" class="fa-regular fa-image"></i>
+								<input accept="image/*" type='file' id="input-picture" style="display:none" />
+						<button class="button-add-photo">+ Ajouter photo</button>
+						<div class="precision">jpg, png : 4mo max</div>
+							</div>
+							  <img src="#" id="picture-preview" alt="your image">
+					  	</div>
+						<div class="modal-new-photo-form">
+							  <span class="title">Titre</span>
+							  <input name="titre" class="input-titre" type="text"/>
+							<span class="categorie">Catégorie</span>
+							<select name="categorie" class="select-category"></select>
+							  <div id="separation2"></div>
+							<button class="button-submit">Valider</button>
+						</div>
+          </div>
           </div>
     </aside>
     </div>
