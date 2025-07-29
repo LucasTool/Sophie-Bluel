@@ -427,6 +427,7 @@ h2 #modif_projet {
 	align-items: center;
 	padding: 20px 30px;                  
 	box-shadow: 0 0 30px rgba(0,0,0,0.2);
+	position: relative;
   }
 
 .title {
@@ -436,13 +437,14 @@ h2 #modif_projet {
 }
 
 .js-modal-close-new {
-	background-color: white;
+	background: none;
 	border: none;
 	position: absolute;
 	cursor: pointer;
-	font-size: 18px;
-	padding-bottom: 100px;
-	padding-left: 250px;
+	font-size: 20px;
+    top: 15px;
+	right: 15px;
+	z-index: 10;
 }
 
 .top1 {
@@ -471,6 +473,7 @@ h2 #modif_projet {
 }
 
 .modal-wrapper-new h3{
+	position: absolute;
 	justify-content: center;
 	font-size: 26px;
 	width: 630px;
@@ -518,6 +521,26 @@ h2 #modif_projet {
 	left: 54.14px;
 	cursor: pointer;
 }
+
+.top {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 100%;
+	position: relative;
+	height: 50px;
+  }
+  
+  .modal-back {
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+  }
 
 #separation1 {
 	display: flex;
