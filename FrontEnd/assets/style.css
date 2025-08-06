@@ -397,6 +397,7 @@ h2 #modif_projet {
 
 #modif_projet .fa-regular {
 	margin-right: 10px;
+	margin-top: 10px;
 }
 
 
@@ -525,7 +526,7 @@ h2 #modif_projet {
 
 .modal-new-photo {
 	width: 100%;
-	height: 200px; /* tu peux ajuster cette hauteur selon ton design */
+	height: 200px; 
 	background-color: #f4f4f4;
 	border: 1px dashed #ccc;
 	display: flex;
@@ -542,7 +543,6 @@ h2 #modif_projet {
 	justify-content: space-between;
 	align-items: flex-start;
 	width: 100%;
-	position: relative;
 	height: 50px;
   }
   
@@ -551,10 +551,9 @@ h2 #modif_projet {
 	border: none;
 	font-size: 20px;
 	cursor: pointer;
-	position: absolute;
-	top: 15px;
 	left: 15px;
 	z-index: 10;
+	margin: 0px;
   }
 
 #separation1 {
@@ -676,21 +675,6 @@ footer nav ul {
 	height: 36px;
 	cursor: pointer;
 	text-decoration: none;
-}
-
-.modal-back {
-	background-color: white;
-	border: none;
-	margin-top: 26px;
-	margin-left: 30px;
-	height: 24px;
-}
-
-.top {
-	display:flex;
-	justify-content: space-between;
-	margin-top: 10px;
-	background-color: white;
 }
 
 .modal-back .fa-solid {

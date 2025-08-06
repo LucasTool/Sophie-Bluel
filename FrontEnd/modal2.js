@@ -29,14 +29,17 @@ const OPEN_MODAL_NEW = function (e) {
 }
 
 //FONCTION FERMETURE BOITE MODALE
+ //SI ON CLIQUE SUR AUTRE CHOSE QUE LA MODALE OU LE BOUTON ON NE VEUT PAS FERMER
 const CLOSE_MODAL_NEW = function (e) {
     if (modal_new==null) return
-    //SI ON CLIQUE SUR AUTRE CHOSE QUE LA MODALE OU LE BOUTON ON NE VEUT PAS FERMER
-    if (e.target != modal_new && e.target != BUTTON_CLOSE_NEW && e.target != document.querySelector('.top .fa-x') ) return
+   
+    if (e.target != modal_new && e.target != BUTTON_CLOSE_NEW && e.target != document.querySelector('.top .fa-x') ) 
+    return
     e.preventDefault
     modal_new.style.display="none"
     modal_new.removeEventListener('click',CLOSE_MODAL_NEW)
-    BUTTON_CLOSE_NEW.removeEventListener ('click',CLOSE_MODAL_NEW)
+    BUTTON_CLOSE_NEW.removeEventListener('click',CLOSE_MODAL_NEW)
+    modal_new = null
 }
 
 //BOUTON RETOUR
@@ -121,6 +124,8 @@ const UPLOAD_WORK = function(){
             resetForm();//REMISE A ZERO FORMULAIRE
             refreshWorks(GALLERY_MODALE, true); //REAFFICHAGE TRAVAUX DANS MODALE
             refreshWorks(GALLERY_DIV,false); //REAFFICHAGE TRAVAUX DANS INDEX
+            modal_new.style.display = "none"; // ✅ FERMETURE DE LA MODALE 2
+            modal_new = null;
             VERIFICATION();
         }else if (response.status===401){
             alert('Session expirée ou invalide');
@@ -130,6 +135,7 @@ const UPLOAD_WORK = function(){
         })
     
 }
+
 
 
 
@@ -155,3 +161,8 @@ TITLE_NEW_PHOTO.addEventListener("change",VERIFICATION);
 document.querySelectorAll('#ajout_projet').forEach(a=>{
     a.addEventListener('click', OPEN_MODAL_NEW)
 })
+
+
+
+
+
